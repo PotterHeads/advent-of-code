@@ -27,6 +27,7 @@ int main(){
     }
     // smarter way (using mean)
     
+    
     cout<<sum<<"\n";
     return 0;
 }
