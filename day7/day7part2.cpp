@@ -26,6 +26,7 @@ int main(){
         sum = min(sum,curr_sum);
     }
     // smarter way (using mean)
+    
     cout<<sum<<"\n";
     return 0;
 }
