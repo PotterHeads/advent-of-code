@@ -34,12 +34,12 @@ int main(){
             um[r].push_back(c);
         }
     }
-    int col = max_x + 1;
-    int row = max_y + 1;
+    int row = max_y + 2; // +2 to ensure that if the chosen value is exactly half of row, it will still be able to flip
+    int col = max_x + 2;
     vector<vector<char>> AM(row,vector<char>(col,'.'));
-    for(auto &r:um){
-        for(auto &c:um[r.first]){
-            AM[c][r.first] = '#';
+    for(auto &c:um){
+        for(auto &r:um[c.first]){
+            AM[r][c.first] = '#';
         }
     }
     while(!q.empty()){
@@ -51,10 +51,7 @@ int main(){
                 for(int j = 0;j<col;j++){
                     char c = AM[value+i][j];
                     if(c == '#'){
-                        char new_space = AM[value-i][j];
-                        if(new_space != '#'){
-                            AM[value-i][j] = '#';
-                        }
+                        AM[value-i][j] = '#';
                     }
                 }
             }
@@ -65,33 +62,18 @@ int main(){
                 for(int j = 1;j<=value;j++){
                     char c = AM[i][value+j];
                     if(c =='#'){
-                        char new_space = AM[i][value-j];
-                        if(new_space != '#'){
-                            AM[i][value-j] = '#';
-                        }
+                        AM[i][value-j] = '#';
                     }
                 }
             }
             col = value;
         }
     }
-    cout<<row<<" "<<col<<"\n";
-    // for(int i = 0;i<row;i++){
-    //     for(int j = 0;j<col;j++){
-    //         cout<<AM[i][j]<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
+    for(int i = 0;i<row;i++){
+        for(int j = 0;j<col;j++){
+            cout<<AM[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
     return 0;
 }
-// fold along y=447
-// fold along x=327
-// fold along y=223
-// fold along x=163
-// fold along y=111
-// fold along x=81
-// fold along y=55
-// fold along x=40
-// fold along y=27
-// fold along y=13
-// fold along y=6

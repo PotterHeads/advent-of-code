@@ -3,10 +3,10 @@ using namespace std;
 
 int main(){
     std::ios::sync_with_stdio(false); std::cin.tie(NULL);
-    freopen("in2.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     unordered_map<int,vector<int>> um;
     queue<pair<char,int>> q;
-    int count = 0;
+    vector<int> ans;
     bool instructions = false;
     int max_x = -1;
     int max_y = -1;
@@ -35,16 +35,16 @@ int main(){
             um[r].push_back(c);
         }
     }
-    int col = max_x + 1;
-    int row = max_y + 1;
+    int row = max_y + 2; // +2 to ensure that if the chosen value is exactly half of row, it will still be able to flip
+    int col = max_x + 2;
     vector<vector<char>> AM(row,vector<char>(col,'.'));
-    for(auto &r:um){
-        for(auto &c:um[r.first]){
-            AM[c][r.first] = '#';
-            count++;
+    for(auto &c:um){
+        for(auto &r:um[c.first]){
+            AM[r][c.first] = '#';
         }
     }
     while(!q.empty()){
+        int count = 0;
         char axis = q.front().first;
         int value = q.front().second;
         q.pop();
@@ -52,12 +52,12 @@ int main(){
             for(int i = 1;i<=value;i++){
                 for(int j = 0;j<col;j++){
                     char c = AM[value+i][j];
-                    if(c == '#'){
-                        char new_space = AM[value-i][j];
-                        if(new_space != '#'){
-                            count++;
-                            AM[value-i][j] = '#';
-                        }
+                    if(AM[value-i][j] == '#'){
+                        count++;
+                    }
+                    else if(c == '#'){
+                        count++;
+                        AM[value-i][j] = '#';
                     }
                 }
             }
@@ -67,24 +67,19 @@ int main(){
             for(int i = 0;i<row;i++){
                 for(int j = 1;j<=value;j++){
                     char c = AM[i][value+j];
-                    if(c =='#'){
-                        char new_space = AM[i][value-j];
-                        if(new_space != '#'){
-                            count++;
-                            AM[i][value-j] = '#';
-                        }
+                    if(AM[i][value-j] == '#'){
+                        count++;
+                    }
+                    else if(c =='#'){
+                        count++;
+                        AM[i][value-j] = '#';
                     }
                 }
             }
             col = value;
         }
+        ans.push_back(count);
     }
-    // for(int i = 0;i<row;i++){
-    //     for(int j = 0;j<col;j++){
-    //         cout<<AM[i][j]<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
-    cout<<count<<"\n";
+    cout<<ans[0]<<"\n";
     return 0;
 }
