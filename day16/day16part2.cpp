@@ -17,10 +17,9 @@ pair<string,long long> parse (string &binary){
             if(bit == '0'){
                 break;
             }
-            long long value = stoll(num,0,2);
-            cout<<"VALUE "<<value<<"\n";
-            return {binary,value};
         }
+        long long value = stoll(num,0,2);
+        return {binary,value};
     }
     else{
         vector<long long> storage;
@@ -50,53 +49,52 @@ pair<string,long long> parse (string &binary){
         }
         if(id == 0){
             long long total = 0;
-            for(int i = 0;i<storage.size();i++){
+            for(long long i = 0;i<storage.size();i++){
                 total += storage[i];
             }
-            cout<<total<<"\n";
             return {binary,total};
         }
         if(id == 1){
             long long total = 1;
-            for(int i = 0;i<storage.size();i++){
+            for(long long i = 0;i<storage.size();i++){
                 total *= storage[i];
             }
             return {binary,total};            
         }
         if(id == 2){
             long long min_value = 1e18;
-            for(int i = 0;i<storage.size();i++){
+            for(long long i = 0;i<storage.size();i++){
                 min_value = min(min_value,storage[i]);
             }            
             return {binary,min_value};
         }
         if(id == 3){
             long long max_value = 0;
-            for(int i = 0;i<storage.size();i++){
+            for(long long i = 0;i<storage.size();i++){
                 max_value = max(max_value,storage[i]);
             }            
             return {binary,max_value};
         }
         if(id == 5){
             if(storage[0] > storage[1]){
-                return {binary,1};
+                return {binary,1LL};
             }
-            return {binary,0};
+            return {binary,0LL};
         }
         if(id == 6){
             if(storage[0] < storage[1]){
-                return {binary,1};
+                return {binary,1LL};
             }
-            return {binary,0};
+            return {binary,0LL};
         }
         if(id == 7){
             if(storage[0] == storage[1]){
-                return {binary,1};
+                return {binary,1LL};
             }
-            return {binary,0};            
+            return {binary,0LL};            
         }
     }
-    return {binary,NULL};
+    return {binary,0LL};
 }
 
 int main(){
@@ -124,7 +122,6 @@ int main(){
     for(int i = 0;i<line.size();i++){
         binary+=um[line[i]];
     }
-    cout<<binary<<"\n";
     pair<string,long long> p = parse(binary);
     cout<<"FINAL "<<p.second<<"\n";
     return 0;
