@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string name;
-
 // immediately edit the string to remove unecessary bits 
 string parse (string &binary,long long &version){
     string packet_version = binary.substr(0,3);
