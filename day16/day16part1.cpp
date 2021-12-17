@@ -12,7 +12,7 @@ string parse (string &binary,long long &version){
     if(id == 4){
         string num;
         while(true){
-            num+=binary.substr(0,5);
+            num+=binary.substr(1,4);
             char bit = binary[0];
             binary = binary.substr(5);
             if(bit == '0'){
@@ -72,6 +72,6 @@ int main(){
         binary+=um[line[i]];
     }
     parse(binary,version);
-    cout<<"VERSION VALUE "<<version<<"\n";
+    cout<<version<<"\n";
     return 0;
 }

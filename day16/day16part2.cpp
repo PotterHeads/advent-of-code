@@ -11,7 +11,7 @@ pair<string,long long> parse (string &binary){
     if(id == 4){
         string num;
         while(true){
-            num+=binary.substr(0,5);
+            num+=binary.substr(1,4);
             char bit = binary[0];
             binary = binary.substr(5);
             if(bit == '0'){
@@ -99,7 +99,7 @@ pair<string,long long> parse (string &binary){
 
 int main(){
     std::ios::sync_with_stdio(false); std::cin.tie(NULL);
-    freopen("in2.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     unordered_map<char,string> um = {
         {'0',"0000"},
         {'1', "0001"},
@@ -119,7 +119,7 @@ int main(){
         {'F', "1111"}
     };
     string line,binary,test;cin>>line;
-    for(int i = 0;i<line.size();i++){
+    for(long long i = 0;i<line.size();i++){
         binary+=um[line[i]];
     }
     pair<string,long long> p = parse(binary);
