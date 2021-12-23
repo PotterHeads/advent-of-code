@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// naive method
 int main(){
     std::ios::sync_with_stdio(false); std::cin.tie(NULL);
     freopen("in.txt", "r", stdin);
