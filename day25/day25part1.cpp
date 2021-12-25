@@ -4,50 +4,81 @@ using namespace std;
 int main(){
     ios::sync_with_stdio(false); cin.tie(NULL);
     freopen("in2.txt", "r", stdin);
-    int rows = 9;
-    int cols = 10;
+    vector<string> grid;
+    while(!cin.eof()){
+        string line;
+        getline(cin,line);
+        grid.push_back(line);
+    }
+    int rows = grid.size();
+    int cols = grid[0].size();
     int steps = 0;
-    string grid[rows];
-    for(int i = 0;i<cols;i++){
-        getline(cin,grid[i]);
-    }
-    deque<tuple<int,int,int>> dq;
     set<pair<int,int>> s;
-    for(int i = 0;i<rows;i++){
-        for(int j = 0;j<cols;j++){
-            if(grid[i][j] == '>'){
-                dq.push_front({steps,i,j});
-            }
-            else if(grid[i][j] == 'v'){
-                dq.push_back({steps,i,j});
+    while(true){
+        steps++;
+        s.clear();
+        bool moved = false;
+        for(int i = 0;i<rows;i++){
+            for(int j = 0;j<cols;j++){
+                if(grid[i][j] == '>' and s.find({i,j}) == s.end()){
+                    int new_j = (j+1)%cols;
+                    if(grid[i][new_j] == '.'){
+                        moved = true;
+                        grid[i][new_j] = '>';
+                        s.insert({i,new_j});
+                        grid[i][j] = '.';
+                    }
+                }        
             }
         }
-    }
-    int original = dq.size();
-    while(!dq.empty()){
-        int curr_steps = get<0>(dq.front());
-        int curr_r = get<1>(dq.front());
-        int curr_c = get<2>(dq.front());
-        curr_steps++;
-        steps = curr_steps;
-        if(grid[curr_r][curr_c] == '>'){
-            int new_r = curr_r + 1;
-            if(new_r >= cols){
-                new_r%=cols;
+        // cout<<"######"<<"\n";
+        // for(int i = 0;i<rows;i++){
+        //     for(int j = 0;j<cols;j++){
+        //         cout<<grid[i][j];
+        //     }
+        //     cout<<"\n";
+        // }
+        // cout<<"######"<<"\n";
+        s.clear();
+        // for(int i = 0;i<cols;i++){
+        //     for(int j = 0;j<rows;j++){
+        //         if(grid[j][i] == 'v' and s.find({j,i}) == s.end()){
+        //             int new_j = (j+1)%rows;
+        //             if(grid[new_j][i] == '.'){
+        //                 moved = true;
+        //                 grid[new_j][i] = 'v';
+        //                 grid[j][i] = '.';
+        //                 s.insert({new_j,i});
+        //             }
+        //         }
+        //     }
+        // }
+        for(int i = 0;i<rows;i++){
+            for(int j = 0;j<cols;j++){
+                if(grid[i][j] == 'v' and s.find({i,j}) == s.end()){
+                    int new_i = (i+1)%rows;
+                    if(grid[new_i][j] == '.'){
+                        moved = true;
+                        grid[new_i][j] = 'v';
+                        grid[i][j] = '.';
+                        s.insert({new_i,j});
+                    }
+                }
             }
-            if(grid[new_r][curr_c] == '.'){
-                grid[new_r][curr_c] == '>';
-                grid[curr_r][curr_c] == '.';
-                dq.pop_front();
-                dq.push_back({new_r,curr_c,steps});
-            }
-            // else{
-            //     s.insert()
-            // }
         }
-        // else{} 
-        // if(!mark){}
+        if(!moved){
+            break;
+        }
+        if(steps == 2){
+            break;
+        }
     }
-    // cout<<steps<<"\n";
+    // for(int i = 0;i<rows;i++){
+    //     for(int j = 0;j<cols;j++){
+    //         cout<<grid[i][j];
+    //     }
+    //     cout<<"\n";
+    // }
+    cout<<steps<<"\n";
     return 0;
 }
