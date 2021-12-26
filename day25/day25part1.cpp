@@ -5,6 +5,8 @@ int main(){
     ios::sync_with_stdio(false); cin.tie(NULL);
     freopen("in2.txt", "r", stdin);
     vector<string> grid;
+    vector<string> grid2;
+    vector<string> grid3;
     while(!cin.eof()){
         string line;
         getline(cin,line);
@@ -13,33 +15,31 @@ int main(){
     int rows = grid.size();
     int cols = grid[0].size();
     int steps = 0;
-    set<pair<int,int>> s;
     while(true){
         steps++;
-        s.clear();
         bool moved = false;
+        grid2 = grid;
         for(int i = 0;i<rows;i++){
             for(int j = 0;j<cols;j++){
-                if(grid[i][j] == '>' and s.find({i,j}) == s.end()){
+                if(grid[i][j] == '>' ){
                     int new_j = (j+1)%cols;
                     if(grid[i][new_j] == '.'){
                         moved = true;
-                        grid[i][new_j] = '>';
-                        s.insert({i,new_j});
-                        grid[i][j] = '.';
+                        grid2[i][new_j] = '>';
+                        grid2[i][j] = '.';
                     }
                 }        
             }
         }
-        // cout<<"######"<<"\n";
-        // for(int i = 0;i<rows;i++){
-        //     for(int j = 0;j<cols;j++){
-        //         cout<<grid[i][j];
-        //     }
-        //     cout<<"\n";
-        // }
-        // cout<<"######"<<"\n";
-        s.clear();
+        grid3 = grid2;
+        cout<<"######"<<"\n";
+        for(int i = 0;i<rows;i++){
+            for(int j = 0;j<cols;j++){
+                cout<<grid2[i][j];
+            }
+            cout<<"\n";
+        }
+        cout<<"######"<<"\n";
         // for(int i = 0;i<cols;i++){
         //     for(int j = 0;j<rows;j++){
         //         if(grid[j][i] == 'v' and s.find({j,i}) == s.end()){
@@ -55,13 +55,12 @@ int main(){
         // }
         for(int i = 0;i<rows;i++){
             for(int j = 0;j<cols;j++){
-                if(grid[i][j] == 'v' and s.find({i,j}) == s.end()){
+                if(grid2[i][j] == 'v'){
                     int new_i = (i+1)%rows;
-                    if(grid[new_i][j] == '.'){
+                    if(grid2[new_i][j] == '.'){
                         moved = true;
-                        grid[new_i][j] = 'v';
-                        grid[i][j] = '.';
-                        s.insert({new_i,j});
+                        grid3[new_i][j] = 'v';
+                        grid3[i][j] = '.';
                     }
                 }
             }
@@ -69,16 +68,17 @@ int main(){
         if(!moved){
             break;
         }
-        if(steps == 2){
+        grid = grid3;
+        if(steps == 1){
             break;
         }
     }
-    // for(int i = 0;i<rows;i++){
-    //     for(int j = 0;j<cols;j++){
-    //         cout<<grid[i][j];
-    //     }
-    //     cout<<"\n";
-    // }
+    for(int i = 0;i<rows;i++){
+        for(int j = 0;j<cols;j++){
+            cout<<grid3[i][j];
+        }
+        cout<<"\n";
+    }
     cout<<steps<<"\n";
     return 0;
 }
