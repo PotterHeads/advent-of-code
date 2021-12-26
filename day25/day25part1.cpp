@@ -23,7 +23,8 @@ int main(){
                     int new_j = (j+1)%cols;
                     if(grid[i][new_j] == '.'){
                         moved = true;
-                        s.insert({i,j});
+                        // Unable to change the values of the grid co-currently
+                        s.insert({i,j}); // add into a set first before changing the values of the grid. 
                     }
                 }        
             }
