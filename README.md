@@ -1,3 +1,3 @@
-# advent-of-code-2021
+# advent-of-code
 
-AOC 2021 Attempts
+AOC Attempts
