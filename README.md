@@ -1,3 +1,2 @@
 # advent-of-code
-
-AOC Attempts
+Collection of AOC Attempts 
