@@ -14,7 +14,6 @@ all_combination_part_one = {
 
 # Opponent: A is rock, B is paper, C is scissors
 # Player: X is lose, Y is draw, Z is win
-
 all_combination_part_two = {
   'A X': 3,
   'A Y': 4,
@@ -26,12 +25,6 @@ all_combination_part_two = {
   'C Y': 6,
   'C Z': 7,
 }
-
-'''
-A Y 4
-B X 1
-C Z 7
-'''
 
 fh = open("day2.in")
 first_score = 0
